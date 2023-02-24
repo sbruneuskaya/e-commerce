@@ -1,7 +1,8 @@
 import React from "react";
-import {Container} from "./components/Container/container";
 import {Header} from "./components/Header/header";
 import {Footer} from "./components/Footer/footer";
+import {Navigation} from "./components/Navigation/navigation";
+import {Catalog} from "./components/Catalog/catalog";
 
 export const App = () => {
 
@@ -9,10 +10,8 @@ export const App = () => {
         <>
             <Header/>
             <main>
-                <nav>
-                    <Container className="navigation__container"/>
-                </nav>
-                <section></section>
+                <Navigation/>
+                <Catalog/>
             </main>
             <Footer/>
         </>
