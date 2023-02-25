@@ -1,38 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Container} from "../Container/container";
 import style from './catalog.module.css'
-import photo_5 from './../../assets/img/photo-5.jpg'
-import photo_1 from './../../assets/img/photo-1.jpg'
-import photo_3 from './../../assets/img/photo-3.jpg'
-import photo_2 from './../../assets/img/photo-2.jpg'
-import photo_4 from './../../assets/img/photo-4.jpg'
-import photo from './../../assets/img/photo.jpg'
 import {Order} from "../Order/order";
 import {CatalogProduct} from "../CatalogProduct/catalogProduct";
+import {useDispatch, useSelector} from "react-redux";
+import {productRequestAsync} from "../../store/product/productSlice";
 
-const goodsList = [
-    {title: 'Мясная бомба'},
-    {title: 'Супер сырный'},
-    {title: 'Сытный'},
-    {title: 'Итальянский'},
-    {title: 'Вечная классика'},
-    {title: 'Тяжелый удар'},
-];
 
 
 export const Catalog = () => {
+    const {productsList}=useSelector(state=>state.productRedux)
+    const dispatch = useDispatch()
+    const {categoryArr, activeCategory} = useSelector((state) => state.categoryRedux)
+    console.log(productsList)
+
+    useEffect(()=>{
+        if(categoryArr.length){
+            dispatch(productRequestAsync(categoryArr[activeCategory].title))
+        }
+    },[categoryArr, activeCategory])
+
     return (
         <section className={style.catalog}>
             <Container className={style.catalog__container}>
                 <Order/>
                 <div className={style.catalog__wrapper}>
-                    <h2 className={style.catalog__title}>Бургеры</h2>
+                    <h2 className={style.catalog__title}>{categoryArr[activeCategory]?.rus}</h2>
 
                     <div className={style.catalog__wrap_list}>
                         <ul className={style.catalog__list}>
-                            {goodsList.map((el, key) => (
-                                <li key={key} className={style.catalog__item}>
-                                    <CatalogProduct title={el.title}/>
+                            {productsList.map(el => (
+                                <li key={el.id} className={style.catalog__item}>
+                                    <CatalogProduct el={el}/>
                                 </li>
                             ))}
                         </ul>
