@@ -12,7 +12,6 @@ export const Catalog = () => {
     const {productsList}=useSelector(state=>state.productRedux)
     const dispatch = useDispatch()
     const {categoryArr, activeCategory} = useSelector((state) => state.categoryRedux)
-    console.log(productsList)
 
     useEffect(()=>{
         if(categoryArr.length){

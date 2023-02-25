@@ -9,7 +9,7 @@ export const OrderGoods=({item})=>{
             <img className={style.order__image} src={burger_1} alt={item}/>
 
             <div className={style.goods}>
-                <h3 className={style.goods__title}>alt={item}</h3>
+                <h3 className={style.goods__title}>{item}</h3>
 
                 <p className={style.goods__weight}>512г</p>
 
