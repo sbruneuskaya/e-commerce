@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import style from './navigation.module.css'
 import {Container} from "../Container/container";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCategory} from "../../store/categoty/categorySlice";
+import {categoryRequestAsync, changeCategory} from "../../store/categoty/categorySlice";
+import {API_URL} from "../../const";
 
 export const Navigation = () => {
     const {categoryArr, activeCategory} = useSelector((state) => state.categoryRedux)
     const dispatch = useDispatch()
-    // console.log(categoryArr)
+
+    useEffect(()=>{
+        dispatch(categoryRequestAsync('sveta'))
+    },[])
 
     return (
         <nav className={style.navigation}>
@@ -18,7 +22,7 @@ export const Navigation = () => {
                         <li key={i}>
                             <button
                                 className={classNames(style.navigation__button, activeCategory === i ? style.navigation__button_active : null)}
-                                style={{backgroundImage: `url(${el.image})`}}
+                                style={{backgroundImage: `url(${API_URL}/${el.image})`}}
                                 onClick={()=>{
                                     dispatch(changeCategory({indexCategory: i}))
                                 }}
